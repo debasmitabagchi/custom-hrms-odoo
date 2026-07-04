@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_hrms" model="ir.module.category">
+        <field name="name">Custom HRMS</field>
+    </record>
+
+    <record id="group_hrms_employee" model="res.groups">
+        <field name="name">Employee</field>
+        <field name="category_id" ref="module_category_hrms"/>
+    </record>
+
+    <record id="group_hrms_admin" model="res.groups">
+        <field name="name">HR Officer / Admin</field>
+        <field name="category_id" ref="module_category_hrms"/>
+        <field name="implied_ids" eval="[(4, ref('group_hrms_employee'))]"/>
+    </record>
+
+    <record id="hrms_employee_own_record_rule" model="ir.rule">
+        <field name="name">HRMS Employee: Own Record Only</field>
+        <field name="model_id" ref="model_hrms_employee"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_hrms_employee'))]"/>
+    </record>
+
+    <record id="hrms_employee_admin_full_access_rule" model="ir.rule">
+        <field name="name">HRMS Admin: Full Access</field>
+        <field name="model_id" ref="model_hrms_employee"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_hrms_admin'))]"/>
+    </record>
+
+    <record id="base.user_admin" model="res.users">
+        <field name="groups_id" eval="[(4, ref('group_hrms_admin'))]"/>
+    </record>
+</odoo>

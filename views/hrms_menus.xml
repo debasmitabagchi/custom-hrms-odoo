@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_hrms_root" name="Custom HRMS" sequence="10"/>
+
+    <menuitem id="menu_hrms_employees" name="Employees"
+              parent="menu_hrms_root"
+              action="action_hrms_employee"
+              sequence="10"/>
+
+    <menuitem id="menu_hrms_attendance" name="Attendance"
+              parent="menu_hrms_root"
+              action="action_hrms_attendance"
+              sequence="20"/>
+
+    <menuitem id="menu_hrms_leave" name="Time Off"
+              parent="menu_hrms_root"
+              action="action_hrms_leave"
+              sequence="30"/>
+
+    <menuitem id="menu_hrms_config" name="Configuration"
+              parent="menu_hrms_root"
+              sequence="90"
+              groups="custom_hrms.group_hrms_admin"/>
+
+    <menuitem id="menu_hrms_skill" name="Skills"
+              parent="menu_hrms_config"
+              action="action_hrms_skill"
+              sequence="10"/>
+
+    <menuitem id="menu_hrms_certification" name="Certifications"
+              parent="menu_hrms_config"
+              action="action_hrms_certification"
+              sequence="20"/>
+</odoo>

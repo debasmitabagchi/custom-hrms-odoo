@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hrms_employee_kanban" model="ir.ui.view">
+        <field name="name">hrms.employee.kanban</field>
+        <field name="model">hrms.employee</field>
+        <field name="arch" type="xml">
+            <kanban class="o_hrms_employee_kanban" records_draggable="false">
+                <field name="name"/>
+                <field name="login_id"/>
+                <field name="department"/>
+                <field name="status"/>
+                <field name="image_1920"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click" style="text-align:center; padding:10px;">
+                            <div style="position:relative; display:inline-block;">
+                                <img t-att-src="kanban_image('hrms.employee', 'image_1920', record.id.raw_value)"
+                                     alt="Employee photo"
+                                     class="o_kanban_image rounded-circle"
+                                     style="width:64px;height:64px;object-fit:cover;"/>
+                                <span t-attf-class="rounded-circle"
+                                      t-attf-style="position:absolute;bottom:2px;right:2px;width:12px;height:12px;
+                                      background-color:#{record.status.raw_value == 'present' and '28a745' or (record.status.raw_value == 'leave' and 'ffc107' or 'dc3545')};
+                                      border:2px solid white;"/>
+                            </div>
+                            <div style="font-weight:bold; margin-top:6px;">
+                                <field name="name"/>
+                            </div>
+                            <div style="font-size:12px; color:#888;">
+                                <field name="login_id"/>
+                            </div>
+                            <div style="font-size:12px; color:#888;">
+                                <field name="department"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_hrms_employee_form" model="ir.ui.view">
+        <field name="name">hrms.employee.form</field>
+        <field name="model">hrms.employee</field>
+        <field name="arch" type="xml">
+            <form string="Employee Profile">
+                <header>
+                    <button name="action_check_in" type="object" string="Check In →"
+                            class="btn-primary" invisible="is_checked_in"/>
+                    <button name="action_check_out" type="object" string="Check Out →"
+                            class="btn-secondary" invisible="not is_checked_in"/>
+                    <field name="is_checked_in" invisible="1"/>
+                </header>
+                <sheet>
+                    <field name="image_1920" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="My Name"/></h1>
+                        <field name="login_id" readonly="1"/>
+                    </div>
+                    <group>
+                        <group string="Contact">
+                            <field name="email"/>
+                            <field name="mobile"/>
+                        </group>
+                        <group string="Organization">
+                            <field name="company_name"/>
+                            <field name="department"/>
+                            <field name="manager_id"/>
+                            <field name="location"/>
+                            <field name="date_of_joining"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Resume">
+                            <group>
+                                <field name="about"/>
+                                <field name="job_description"/>
+                                <field name="interests_hobbies"/>
+                            </group>
+                            <group string="Skills">
+                                <field name="skill_ids" widget="many2many_tags"/>
+                            </group>
+                            <group string="Certifications">
+                                <field name="certification_ids" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                        <page string="Private Info">
+                            <group>
+                                <field name="date_of_birth"/>
+                                <field name="gender"/>
+                                <field name="marital_status"/>
+                                <field name="nationality"/>
+                                <field name="personal_email"/>
+                                <field name="permanent_address"/>
+                            </group>
+                            <group string="Payroll ID">
+                                <field name="bank_details"/>
+                                <field name="aadhaar_no"/>
+                                <field name="pan_no"/>
+                                <field name="uan_no"/>
+                            </group>
+                        </page>
+                        <page string="Salary Info" groups="custom_hrms.group_hrms_admin">
+                            <group>
+                                <group string="Wage">
+                                    <field name="monthly_wage"/>
+                                    <field name="yearly_wage" readonly="1"/>
+                                    <field name="working_days_per_week"/>
+                                    <field name="break_time_hours"/>
+                                </group>
+                                <group string="Provident Fund (PF) Contribution">
+                                    <field name="pf_employee_rate"/>
+                                    <field name="pf_employer_rate"/>
+                                    <field name="professional_tax"/>
+                                </group>
+                            </group>
+                            <group string="Salary Components">
+                                <field name="salary_component_ids" nolabel="1">
+                                    <list editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name"/>
+                                        <field name="computation_type"/>
+                                        <field name="percentage_of_basic"/>
+                                        <field name="value"/>
+                                        <field name="computed_amount" readonly="1" sum="Total"/>
+                                    </list>
+                                </field>
+                            </group>
+                            <group>
+                                <field name="total_salary_components" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Time Off">
+                            <group>
+                                <group string="Paid Time Off">
+                                    <field name="paid_leave_allocated"/>
+                                    <field name="paid_leave_taken" readonly="1"/>
+                                    <field name="paid_leave_available" readonly="1"/>
+                                </group>
+                                <group string="Sick Leave">
+                                    <field name="sick_leave_allocated"/>
+                                    <field name="sick_leave_taken" readonly="1"/>
+                                    <field name="sick_leave_available" readonly="1"/>
+                                </group>
+                            </group>
+                            <field name="leave_ids">
+                                <list>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="leave_type"/>
+                                    <field name="number_of_days"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hrms_employee_search" model="ir.ui.view">
+        <field name="name">hrms.employee.search</field>
+        <field name="model">hrms.employee</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="login_id"/>
+                <field name="department"/>
+                <filter string="Present" name="present" domain="[('status','=','present')]"/>
+                <filter string="On Leave" name="leave" domain="[('status','=','leave')]"/>
+                <filter string="Absent" name="absent" domain="[('status','=','absent')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Department" name="group_dept" context="{'group_by':'department'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hrms_employee" model="ir.actions.act_window">
+        <field name="name">Employees</field>
+        <field name="res_model">hrms.employee</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="search_view_id" ref="view_hrms_employee_search"/>
+    </record>
+</odoo>

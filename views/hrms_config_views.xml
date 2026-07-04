@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hrms_skill_list" model="ir.ui.view">
+        <field name="name">hrms.skill.list</field>
+        <field name="model">hrms.skill</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_hrms_skill" model="ir.actions.act_window">
+        <field name="name">Skills</field>
+        <field name="res_model">hrms.skill</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="view_hrms_certification_list" model="ir.ui.view">
+        <field name="name">hrms.certification.list</field>
+        <field name="model">hrms.certification</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_hrms_certification" model="ir.actions.act_window">
+        <field name="name">Certifications</field>
+        <field name="res_model">hrms.certification</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>

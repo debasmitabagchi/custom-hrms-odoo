@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hrms_employee_employee,hrms.employee.employee,model_hrms_employee,group_hrms_employee,1,1,0,0
+access_hrms_employee_admin,hrms.employee.admin,model_hrms_employee,group_hrms_admin,1,1,1,1
+access_hrms_skill_all,hrms.skill.all,model_hrms_skill,group_hrms_employee,1,0,0,0
+access_hrms_skill_admin,hrms.skill.admin,model_hrms_skill,group_hrms_admin,1,1,1,1
+access_hrms_certification_all,hrms.certification.all,model_hrms_certification,group_hrms_employee,1,0,0,0
+access_hrms_certification_admin,hrms.certification.admin,model_hrms_certification,group_hrms_admin,1,1,1,1
+access_hrms_salary_component_employee,hrms.salary.component.employee,model_hrms_salary_component,group_hrms_employee,1,0,0,0
+access_hrms_salary_component_admin,hrms.salary.component.admin,model_hrms_salary_component,group_hrms_admin,1,1,1,1
+access_hrms_attendance_employee,hrms.attendance.employee,model_hrms_attendance,group_hrms_employee,1,1,1,0
+access_hrms_attendance_admin,hrms.attendance.admin,model_hrms_attendance,group_hrms_admin,1,1,1,1
+access_hrms_leave_employee,hrms.leave.employee,model_hrms_leave,group_hrms_employee,1,1,1,0
+access_hrms_leave_admin,hrms.leave.admin,model_hrms_leave,group_hrms_admin,1,1,1,1
